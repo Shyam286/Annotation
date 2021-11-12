@@ -1,4 +1,5 @@
 import java.lang.annotation.*;
+import java.lang.reflect.Method;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -6,26 +7,27 @@ import java.lang.annotation.*;
     int sequence() default 0;
 }
 public class Annotation_3{
-    public static void main(String[] args) {
-        MyClass t= new MyClass(22);
+    public static void main(String[] args) throws Exception {
+        MyClass t= new MyClass();
+        t.myMethod1();
         Class c=t.getClass();
-        Annotation a=c.getAnnotation(Execute.class);
-        Execute m=(Execute)a;
-        System.out.println(m.sequence());
+        Method m=c.getDeclaredMethod("myMethod1");
+        Execute a=m.getAnnotation(Execute.class);
+       // Execute m=(Execute)a;
+        System.out.println(a.sequence());
     }
 }
 class MyClass{
-    private int  cd;
-    public testing(int cd{
-        this.pin=pin;
+    @Execute(sequence=2)
+    public void myMethod1(){
+    System.out.println("Method1");
     }
     @Execute(sequence=1)
-    public static void run(){
-    }
-    @Execute(sequence=2)
-    public static void run2(){
+    public void myMethod2(){
+        System.out.println("Method2");
     }
     @Execute(sequence=3)
-    public static void run2(){
+    public void myMethod3(){
+        System.out.println("Method3");
     }
 }
